@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    .layout {
+        width : 500px;
+        margin : 0 auto;
+        margin-top : 40px;
+    }
+</style>
+<body>
+
+    <div class="layout">
+        <div>
+            <a href="/board/write">글생성</a>
+        </div>
+
+        <table>
+            <thead>
+            <tr>
+                <th>글번호</th>
+                <th>제목</th>
+            </tr>
+            </thead>
+            <tbody>
+                <th:block th:unless="${list.empty}">
+                    <tr th:each="board : ${list}">
+                        <td th:text="${board.id}"></td>
+                        <td>
+                            <a th:text="${board.title}" th:href="@{/board/view(id=${board.id})}"></a>
+                        </td>
+                    </tr>
+                </th:block>
+                <th:block th:if="${list.empty}">
+                    <div>검색 결과가 없습니다.</div>
+                </th:block>
+            </tbody>
+        </table>
+
+
+        <th:block th:if="${endPage > 0}" th:each="page : ${#numbers.sequence(startPage, endPage)}">
+            <a th:if="${page != nowPage}" th:href="@{/board/list(page = ${page - 1}, searchKeyword = ${param.searchKeyword}, category_id = ${param.category_id})}" th:text="${page}"></a>
+            <strong th:if="${page == nowPage}" th:text="${page}" style="color : red"></strong>
+        </th:block>
+        <form th:action="@{/board/list}" method="get">
+            <div>
+                <select name="category_id" th:value="${param.category_id}">
+                    <option value="" >카테고리 선택</option>
+                    <option value="1" th:selected="${param.category_id == 1}">IT</option>
+                    <option value="2" th:selected="${param.category_id == 2}">예술</option>
+                    <option value="3" th:selected="${param.category_id == 3}">건강</option>
+                </select>
+            </div>
+            <input type="text" name="searchKeyword">
+            <button type="submit">검색</button>
+        </form>
+    </div>
+
+</body>
+</html>

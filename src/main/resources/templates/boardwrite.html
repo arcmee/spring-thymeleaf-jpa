@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    .layout {
+        width : 500px;
+        margin : 0 auto;
+        margin-top : 40px;
+        display : block;
+    }
+    .layout input {
+        width : 100%;
+    }
+    .layout textarea {
+        width : 100%;
+        margin-top : 10px;
+    }
+</style>
+<body>
+    <div class="layout">
+        <form action="/board/writepro" method="post" enctype="multipart/form-data">
+            <div>
+                <select name="category_id">
+                    <option value="">카테고리 선택</option>
+                    <option value="1">IT</option>
+                    <option value="2">예술</option>
+                    <option value="3">건강</option>
+                </select>
+            </div>
+            <div>
+                <input name="title" type="text">
+            </div>
+            <div>
+                <textarea name="content"></textarea>
+            </div>
+            <div>
+                <input type="file" name="file">
+            </div>
+            <button type="submit">작성</button>
+        </form>
+    </div>
+
+
+</body>
+</html>
